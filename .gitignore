@@ -2,3 +2,6 @@
 .bob/mcp.json
 .env
 reports/
+@blog/
+blog/
+task-outcomes/quantum_safe_explorer_bob_mode_blog.md
