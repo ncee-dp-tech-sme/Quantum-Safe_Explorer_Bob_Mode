@@ -297,3 +297,5 @@ Do not delete or hand-edit the `remediation/` files. If a rescan overwrites the 
 ## Disclaimer
 
 This tool was created by Erwin Friethoff - Senior Security Architect at IBM and is **not officially supported by IBM**. IBM does not provide support, maintenance, warranties, or guarantees for it. It is provided "as is", without warranty of any kind. Review all proposed code changes before approving them, and test your software after remediation. IBM Quantum Safe Explorer, IBM Guardium, and IBM Bob are products and trademarks of IBM Corporation and remain subject to their own license terms. You need a valid license for QSE, which is not included in this package.
+
+**For any questions, remarks or suggestions, please reach out to Erwin**

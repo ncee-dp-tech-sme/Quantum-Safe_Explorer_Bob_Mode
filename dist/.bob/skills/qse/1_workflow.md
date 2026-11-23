@@ -83,7 +83,7 @@ The QSE CLI is installed at `<QSE_CLI_DIR>`. Always use this constant path when 
 ### Step 6: Locate QSE Findings File
 - Look for the findings JSON in `./qse_explorer_result/` in the **working directory** (not QSE installation directory)
 - Use `list_files` to find the most recent JSON file
-- **Do not proceed to QCM upload if file not found**
+- **Do not proceed to GCM upload if file not found**
 
 </Step>
 <Step>
@@ -107,7 +107,7 @@ The QSE CLI is installed at `<QSE_CLI_DIR>`. Always use this constant path when 
 </Step>
 <Step>
 
-### Step 8: Retrieve QCM Import Profile ID
+### Step 8: Retrieve GCM Import Profile ID
 - Call `gcm_api` with:
   ```json
   {
@@ -122,7 +122,7 @@ The QSE CLI is installed at `<QSE_CLI_DIR>`. Always use this constant path when 
 </Step>
 <Step>
 
-### Step 9: Upload Findings to QCM
+### Step 9: Upload Findings to GCM
 - Call `gcm_api` with:
   ```json
   {
@@ -141,7 +141,7 @@ The QSE CLI is installed at `<QSE_CLI_DIR>`. Always use this constant path when 
 
 ### Step 10: Confirm Upload and Present Results
 - Check the upload response for success
-- Confirm upload to QCM with the user
+- Confirm upload to GCM with the user
 - Provide summary of what was accomplished
 - **Do not generate additional reports or summaries of the findings themselves**
 
@@ -156,7 +156,7 @@ The QSE CLI is installed at `<QSE_CLI_DIR>`. Always use this constant path when 
 - **Java** → Run Cryptographic Analytics (with `-da`) + API Discovery (without `-da`)
 - **Go / Dart / Python / C++** → Run API Discovery only
 
-**Should findings be uploaded to QCM?**
+**Should findings be uploaded to GCM?**
 - **Yes** → Locate findings JSON → Get profile ID → Upload → Confirm
 - **No** → Inform user findings are available locally
 
@@ -169,11 +169,11 @@ The QSE CLI is installed at `<QSE_CLI_DIR>`. Always use this constant path when 
 | Language detection fails | Ask user to specify: `.java`, `.go`, `.dart`, `.py`, `.cpp` |
 | Class files not found (Java) | Use input path as fallback for `-cf` |
 | Scan execution fails | Report error, check QSE installation path and input path |
-| Findings file not found | Check explorer results directory; do not proceed with QCM upload |
+| Findings file not found | Check explorer results directory; do not proceed with GCM upload |
 | GitHub URL not found | Try `git remote get-url origin`; if it fails, ask user directly |
 | Repository URL update fails | Report sed error; restore from `.bak` backup; suggest manual update |
-| QCM profile not found | List available profiles; ask user to create a QSE profile |
-| QCM upload fails | Report error details; verify path and profile ID; findings remain available locally |
+| GCM profile not found | List available profiles; ask user to create a QSE profile |
+| GCM upload fails | Report error details; verify path and profile ID; findings remain available locally |
 
 ---
 
@@ -186,6 +186,6 @@ The QSE CLI is installed at `<QSE_CLI_DIR>`. Always use this constant path when 
 - [ ] GitHub repository URL obtained and validated
 - [ ] Repository URL updated in findings JSON successfully
 - [ ] JSON structure validated after update
-- [ ] QCM import profile ID retrieved successfully
-- [ ] Findings uploaded to QCM successfully
+- [ ] GCM import profile ID retrieved successfully
+- [ ] Findings uploaded to GCM successfully
 - [ ] User informed of completion and upload status

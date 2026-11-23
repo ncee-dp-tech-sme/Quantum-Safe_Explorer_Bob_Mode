@@ -33,11 +33,11 @@ grep -rl '<QSE_CLI_DIR>' .bob/skills/qse | xargs sed -i '' 's#<QSE_CLI_DIR>#/abs
 grep -rl '<QSE_CLI_DIR>' .bob/skills/qse | xargs sed -i 's#<QSE_CLI_DIR>#/absolute/path/to/qse-cli#g'
 ```
 
-Then confirm that `/absolute/path/to/qse-cli/cli.sh` exists and is executable (`chmod +x`). Detailed guidance is in [`.bob/skills/qse/3_command_construction.md`](.bob/skills/qse/3_command_construction.md) ("REQUIRED CONFIGURATION").
+Then confirm that `/absolute/path/to/qse-cli/cli.sh` exists and is executable (`chmod +x`). Detailed guidance is in [`.bob/skills/qse/3_command_construction.md`](/dist/.bob/skills/qse/3_command_construction.md) ("REQUIRED CONFIGURATION").
 
 ### 2. Configure `.bob/mcp.json` (optional, for QCM upload)
 
-Edit [`.bob/mcp.json`](.bob/mcp.json) and replace both placeholders:
+Edit [`.bob/mcp.json`](/dist/.bob/mcp.json) and replace both placeholders:
 
 ```json
 "url": "<GCM_MCP_SERVER_URL>",
@@ -63,7 +63,7 @@ Edit [`.bob/mcp.json`](.bob/mcp.json) and replace both placeholders:
 
 ## Package Contents
 
-Packaged release: [`bob-qse-remediation-1.0.0.zip`](bob-qse-remediation-1.0.0.zip) (see [Installation](#installation)). It extracts to a folder `bob-qse-remediation-1.0.0/` with this layout:
+Packaged release: [`bob-qse-remediation-1.0.0.zip`](/dist/bob-qse-remediation-1.0.0.zip) (see [Installation](#installation)). It extracts to a folder `bob-qse-remediation-1.0.0/` with this layout:
 
 ```
 bob-qse-remediation-1.0.0/
@@ -213,7 +213,7 @@ Select the QSE mode and ask in plain language, for example:
 6. Set `repositoryUrl` in the findings from `git remote get-url origin` (a `.bak` backup is kept and the JSON is validated with `jq`).
 7. Optional: upload to QCM through `gcm_api` (`import_profiles.list`, then `import.upload` with an absolute file path).
 
-Full details are in the [`.bob/skills/qse/`](.bob/skills/qse/) reference files (`1_workflow.md` to `6_qcm_integration.md`).
+Full details are in the [`.bob/skills/qse/`](/dist/.bob/skills/qse/) reference files (`1_workflow.md` to `6_qcm_integration.md`).
 
 ### Remediation workflow (`qse-remediation` skill)
 
@@ -274,10 +274,10 @@ Do not delete or hand-edit the `remediation/` files. If a rescan overwrites the 
 
 ## Further reading
 
-- [`.bob/skills/qse/SKILL.md`](.bob/skills/qse/SKILL.md): scan skill overview
-- [`.bob/skills/qse/3_command_construction.md`](.bob/skills/qse/3_command_construction.md): CLI parameters and path configuration
-- [`.bob/skills/qse/5_examples.md`](.bob/skills/qse/5_examples.md): worked examples per language
-- [`.bob/skills/qse-remediation/SKILL.md`](.bob/skills/qse-remediation/SKILL.md): remediation workflow and ground rules
+- [`.bob/skills/qse/SKILL.md`](/dist/.bob/skills/qse/SKILL.md): scan skill overview
+- [`.bob/skills/qse/3_command_construction.md`](/dist/.bob/skills/qse/3_command_construction.md): CLI parameters and path configuration
+- [`.bob/skills/qse/5_examples.md`](/dist/.bob/skills/qse/5_examples.md): worked examples per language
+- [`.bob/skills/qse-remediation/SKILL.md`](/dist/.bob/skills/qse-remediation/SKILL.md): remediation workflow and ground rules
 
 ---
 
@@ -297,3 +297,5 @@ Do not delete or hand-edit the `remediation/` files. If a rescan overwrites the 
 ## Disclaimer
 
 This tool was created by Erwin Friethoff - Senior Security Architect at IBM and is **not officially supported by IBM**. IBM does not provide support, maintenance, warranties, or guarantees for it. It is provided "as is", without warranty of any kind. Review all proposed code changes before approving them, and test your software after remediation. IBM Quantum Safe Explorer, IBM Guardium, and IBM Bob are products and trademarks of IBM Corporation and remain subject to their own license terms. You need a valid license for QSE, which is not included in this package.
+
+**For any questions, remarks or suggestions, please reach out to Erwin**
