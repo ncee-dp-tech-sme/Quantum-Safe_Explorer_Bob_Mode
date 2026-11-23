@@ -34,11 +34,11 @@ grep -rl '<QSE_CLI_DIR>' .bob/skills/qse | xargs sed -i '' 's#<QSE_CLI_DIR>#/abs
 grep -rl '<QSE_CLI_DIR>' .bob/skills/qse | xargs sed -i 's#<QSE_CLI_DIR>#/absolute/path/to/qse-cli#g'
 ```
 
-Then confirm that `/absolute/path/to/qse-cli/cli.sh` exists and is executable (`chmod +x`). Detailed guidance is in [`.bob/skills/qse/3_command_construction.md`](/dist/.bob/skills/qse/3_command_construction.md) ("REQUIRED CONFIGURATION").
+Then confirm that `/absolute/path/to/qse-cli/cli.sh` exists and is executable (`chmod +x`). Detailed guidance is in [`.bob/skills/qse/3_command_construction.md`](.bob/skills/qse/3_command_construction.md) ("REQUIRED CONFIGURATION").
 
 ### 2. Configure `.bob/mcp.json` (optional, for QCM upload)
 
-Edit [`.bob/mcp.json`](/dist/.bob/mcp.json) and replace both placeholders:
+Edit [`.bob/mcp.json`](.bob/mcp.json) and replace both placeholders:
 
 ```json
 "url": "<GCM_MCP_SERVER_URL>",
@@ -64,7 +64,7 @@ Edit [`.bob/mcp.json`](/dist/.bob/mcp.json) and replace both placeholders:
 
 ## Package Contents
 
-Packaged release: [`bob-qse-remediation-1.0.0.zip`](/dist/bob-qse-remediation-1.0.0.zip) (see [Installation](#installation)). It extracts to a folder `bob-qse-remediation-1.0.0/` with this layout:
+Packaged release: [`bob-qse-remediation-1.0.0.zip`](bob-qse-remediation-1.0.0.zip) (see [Installation](#installation)). It extracts to a folder `bob-qse-remediation-1.0.0/` with this layout:
 
 ```
 bob-qse-remediation-1.0.0/
@@ -85,7 +85,9 @@ bob-qse-remediation-1.0.0/
         └── qse-remediation/                   remediation skill
             ├── SKILL.md
             ├── remediation_tool.py
-            └── references/remediation_patterns.md
+            └── references/
+                ├── pr_template.md
+                └── remediation_patterns.md
 ```
 
 ### Mode configuration
@@ -94,8 +96,9 @@ bob-qse-remediation-1.0.0/
 |---|---|
 | Slug | `qse` |
 | Name | 🔐 Quantum Safe Explorer |
+| Description | Scan codebases for quantum-readiness, analyze cryptographic APIs, and remediate vulnerabilities with post-quantum cryptography best practices. |
 | Tool groups | `read`, `execute`, `mcp`, `edit`, `skill`, `subtask`, `subagent`, `mode` |
-| Role | Quantum cryptography security specialist: runs QSE scans, interprets results, explains post-quantum requirements |
+| Role | Quantum cryptography security specialist: runs QSE scans, interprets results, guides post-quantum crypto migrations (FIPS 203/204/205), and performs safe code remediation |
 
 The `edit` group is enabled, so the remediation skill can apply approved changes without switching modes.
 
@@ -214,7 +217,7 @@ Select the QSE mode and ask in plain language, for example:
 6. Set `repositoryUrl` in the findings from `git remote get-url origin` (a `.bak` backup is kept and the JSON is validated with `jq`).
 7. Optional: upload to QCM through `gcm_api` (`import_profiles.list`, then `import.upload` with an absolute file path).
 
-Full details are in the [`.bob/skills/qse/`](/dist/.bob/skills/qse/) reference files (`1_workflow.md` to `6_qcm_integration.md`).
+Full details are in the [`.bob/skills/qse/`](.bob/skills/qse/) reference files (`1_workflow.md` to `6_qcm_integration.md`).
 
 ### Remediation workflow (`qse-remediation` skill)
 
@@ -223,10 +226,12 @@ Run after a scan has produced findings in `qs_explorer_result/`.
 1. `init` loads the findings, groups them per source file, and assigns stable IDs (`F-001`, ...). Re-running it keeps existing statuses, so work can resume across sessions.
 2. Files are processed one at a time, highest severity first.
 3. For each file Bob reads the code, confirms the finding is still current, and proposes a diff. The proposal includes the CWE, the rationale, what stays the same, and any **BEHAVIOR-CHANGING** items.
-4. **Nothing is edited without your explicit approval** of that specific proposal.
-5. Approved changes are backed up first, applied with a timestamped comment block, and recorded in the change log.
-6. Each change is validated (syntax or compile check, linter, tests) and the result is recorded.
-7. A final report with before/after diffs and validation evidence is generated. A QSE rescan is recommended to confirm the findings are gone.
+4. **Permission-gated Web Research:** If an unfamiliar algorithm or novel CVE is encountered, Bob checks offline patterns first. If online lookup is needed, Bob prompts for explicit user approval, displaying the exact search query and target domains, and confirming no repository code or secrets will be sent.
+5. **Nothing is edited without your explicit approval** of that specific proposal.
+6. Approved changes are backed up first, applied with a timestamped comment block, and recorded in the change log.
+7. Each change is validated (syntax or compile check, linter, tests) and the result is recorded.
+8. A final report with before/after diffs and validation evidence is generated. A QSE rescan is recommended to confirm the findings are gone.
+9. **PR Generation:** When requested, Bob formats a comprehensive, structured Pull Request description following [`.bob/skills/qse-remediation/references/pr_template.md`](.bob/skills/qse-remediation/references/pr_template.md).
 
 Helper commands (run from the workspace root):
 
@@ -275,10 +280,10 @@ Do not delete or hand-edit the `remediation/` files. If a rescan overwrites the 
 
 ## Further reading
 
-- [`.bob/skills/qse/SKILL.md`](/dist/.bob/skills/qse/SKILL.md): scan skill overview
-- [`.bob/skills/qse/3_command_construction.md`](/dist/.bob/skills/qse/3_command_construction.md): CLI parameters and path configuration
-- [`.bob/skills/qse/5_examples.md`](/dist/.bob/skills/qse/5_examples.md): worked examples per language
-- [`.bob/skills/qse-remediation/SKILL.md`](/dist/.bob/skills/qse-remediation/SKILL.md): remediation workflow and ground rules
+- [`.bob/skills/qse/SKILL.md`](.bob/skills/qse/SKILL.md): scan skill overview
+- [`.bob/skills/qse/3_command_construction.md`](.bob/skills/qse/3_command_construction.md): CLI parameters and path configuration
+- [`.bob/skills/qse/5_examples.md`](.bob/skills/qse/5_examples.md): worked examples per language
+- [`.bob/skills/qse-remediation/SKILL.md`](.bob/skills/qse-remediation/SKILL.md): remediation workflow and ground rules
 
 ---
 

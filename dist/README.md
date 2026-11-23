@@ -84,7 +84,9 @@ bob-qse-remediation-1.0.0/
         └── qse-remediation/                   remediation skill
             ├── SKILL.md
             ├── remediation_tool.py
-            └── references/remediation_patterns.md
+            └── references/
+                ├── pr_template.md
+                └── remediation_patterns.md
 ```
 
 ### Mode configuration
@@ -93,8 +95,9 @@ bob-qse-remediation-1.0.0/
 |---|---|
 | Slug | `qse` |
 | Name | 🔐 Quantum Safe Explorer |
+| Description | Scan codebases for quantum-readiness, analyze cryptographic APIs, and remediate vulnerabilities with post-quantum cryptography best practices. |
 | Tool groups | `read`, `execute`, `mcp`, `edit`, `skill`, `subtask`, `subagent`, `mode` |
-| Role | Quantum cryptography security specialist: runs QSE scans, interprets results, explains post-quantum requirements |
+| Role | Quantum cryptography security specialist: runs QSE scans, interprets results, guides post-quantum crypto migrations (FIPS 203/204/205), and performs safe code remediation |
 
 The `edit` group is enabled, so the remediation skill can apply approved changes without switching modes.
 
@@ -222,10 +225,12 @@ Run after a scan has produced findings in `qs_explorer_result/`.
 1. `init` loads the findings, groups them per source file, and assigns stable IDs (`F-001`, ...). Re-running it keeps existing statuses, so work can resume across sessions.
 2. Files are processed one at a time, highest severity first.
 3. For each file Bob reads the code, confirms the finding is still current, and proposes a diff. The proposal includes the CWE, the rationale, what stays the same, and any **BEHAVIOR-CHANGING** items.
-4. **Nothing is edited without your explicit approval** of that specific proposal.
-5. Approved changes are backed up first, applied with a timestamped comment block, and recorded in the change log.
-6. Each change is validated (syntax or compile check, linter, tests) and the result is recorded.
-7. A final report with before/after diffs and validation evidence is generated. A QSE rescan is recommended to confirm the findings are gone.
+4. **Permission-gated Web Research:** If an unfamiliar algorithm or novel CVE is encountered, Bob checks offline patterns first. If online lookup is needed, Bob prompts for explicit user approval, displaying the exact search query and target domains, and confirming no repository code or secrets will be sent.
+5. **Nothing is edited without your explicit approval** of that specific proposal.
+6. Approved changes are backed up first, applied with a timestamped comment block, and recorded in the change log.
+7. Each change is validated (syntax or compile check, linter, tests) and the result is recorded.
+8. A final report with before/after diffs and validation evidence is generated. A QSE rescan is recommended to confirm the findings are gone.
+9. **PR Generation:** When requested, Bob formats a comprehensive, structured Pull Request description following [`.bob/skills/qse-remediation/references/pr_template.md`](.bob/skills/qse-remediation/references/pr_template.md).
 
 Helper commands (run from the workspace root):
 
