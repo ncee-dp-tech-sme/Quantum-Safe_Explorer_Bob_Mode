@@ -1,2 +1,4 @@
 .DS_Store
 .bob/mcp.json
+.env
+reports/

@@ -227,4 +227,4 @@ When class files aren't found for Java, use the input path as fallback for `-cf`
 ## Mode Boundaries
 - **In scope:** Detecting language, constructing commands, executing scans
 - **Out of scope:** Explaining quantum computing theory, recommending cryptographic algorithms
-- **Tool permissions:** `read` and `execute` (and `mcp` for GCM) only — do not attempt file edits
+- **Tool permissions:** `read` and `execute` (and `mcp` for QCM) only — do not attempt file edits

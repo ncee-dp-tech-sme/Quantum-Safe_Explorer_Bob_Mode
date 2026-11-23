@@ -1,13 +1,13 @@
-# GCM Integration Guide
+# QCM Integration Guide
 
 ## Overview
-Detailed instructions for integrating QSE findings with IBM Quantum Cryptographic Manager (GCM) using the `gcm_api` MCP tool.
+Detailed instructions for integrating QSE findings with IBM Quantum Cryptographic Manager (QCM) using the `gcm_api` MCP tool.
 
 ---
 
-## GCM MCP Server
+## QCM MCP Server
 
-The `gcm-mcp-server` provides tools to interact with IBM Guardium Cryptographic Manager (GCM/GCM) APIs. It enables uploading QSE findings for centralized cryptographic asset management and policy enforcement.
+The `gcm-mcp-server` provides tools to interact with IBM Guardium Cryptographic Manager (GCM/QCM) APIs. It enables uploading QSE findings for centralized cryptographic asset management and policy enforcement.
 
 **Authentication:** Use the same authorization and token_type headers from the gcm-mcp-server configuration 
 
@@ -16,15 +16,15 @@ The `gcm-mcp-server` provides tools to interact with IBM Guardium Cryptographic 
 ## Prerequisites Before Upload
 - [ ] QSE scan completed successfully
 - [ ] Findings JSON file exists in the explorer results directory
-- [ ] GCM server is accessible
-- [ ] QSE import profile exists in GCM
+- [ ] QCM server is accessible
+- [ ] QSE import profile exists in QCM
 - [ ] Repository URL has been updated in the findings JSON
 
 ---
 
 ## When to Upload
 - After a QSE scan completes and a findings JSON file is generated
-- When the user explicitly requests GCM integration
+- When the user explicitly requests QCM integration
 - After successfully updating the `repositoryUrl` field in the findings file
 
 ---
@@ -64,7 +64,7 @@ arguments: { "service": "discovery", "operation": "import_profiles.list" }
 
 ### Operation 2: Upload Findings
 
-**Purpose:** Upload the QSE findings JSON file to GCM.
+**Purpose:** Upload the QSE findings JSON file to QCM.
 
 ```json
 {
@@ -99,14 +99,14 @@ arguments: {
 
 **Success response handling:**
 - Confirm upload completed
-- Inform user findings are now in GCM
+- Inform user findings are now in QCM
 - Provide any upload ID or reference from the response
 
 **Failure response handling:**
 - Report the specific error message
 - Verify file path is correct
 - Verify profile ID is valid
-- Check GCM server connectivity
+- Check QCM server connectivity
 - Remind user findings remain available locally
 
 ---
@@ -159,7 +159,7 @@ Construct the full absolute path:
 
 ---
 
-## Complete GCM Upload Workflow
+## Complete QCM Upload Workflow
 
 <Steps>
 <Step>
@@ -196,7 +196,7 @@ jq -r '.findings.repositoryUrl' [findings_file_path]
 </Step>
 <Step>
 
-### Step 3: Get GCM Import Profiles
+### Step 3: Get QCM Import Profiles
 ```json
 {
   "service": "discovery",
@@ -244,7 +244,7 @@ The file now contains the updated `repositoryUrl`.
 | Provide clear error messages | When upload fails, guide the user; remind them findings remain available locally |
 | Handle auth gracefully | If auth fails, inform user about `GCM_USERNAME`/`GCM_PASSWORD` env vars |
 | Validate JSON before upload | Optionally read and validate structure before uploading |
-| Update repository URL first | Always update `repositoryUrl` in findings JSON **before** uploading to GCM |
+| Update repository URL first | Always update `repositoryUrl` in findings JSON **before** uploading to QCM |
 | Create backup before modifying | The `sed -i.bak` flag creates a `.bak` backup for recovery |
 
 ---
@@ -253,7 +253,7 @@ The file now contains the updated `repositoryUrl`.
 
 | Scenario | Symptoms | Resolution |
 |---|---|---|
-| Profile not found | `import_profiles.list` returns empty or no QSE profile | Inform user to create a QSE import profile in GCM; do not proceed with upload |
+| Profile not found | `import_profiles.list` returns empty or no QSE profile | Inform user to create a QSE import profile in QCM; do not proceed with upload |
 | File not found | Findings file doesn't exist at expected location | List `qse_explorer_result/` contents; check if scan actually completed; look for alternative filenames |
 | Upload fails | API returns error | Report specific error; verify path and profile ID; check connectivity; remind user findings are local |
 | Authentication fails | API returns auth error | Check authorization and token_type; do not proceed until authenticated |
@@ -268,13 +268,13 @@ The file now contains the updated `repositoryUrl`.
 **Success:**
 ```
 QSE scan completed successfully. Findings have been uploaded to Quantum
-Cryptographic Manager (GCM) and are now available for analysis and policy
+Cryptographic Manager (QCM) and are now available for analysis and policy
 enforcement. The findings file remains available locally at [absolute_path].
 ```
 
 **Partial success (upload failed):**
 ```
-QSE scan completed successfully. However, upload to GCM failed: [error_details].
+QSE scan completed successfully. However, upload to QCM failed: [error_details].
 The findings file is available locally at [absolute_path] and can be manually
 uploaded or the upload can be retried.
 ```
